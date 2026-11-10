@@ -15,11 +15,25 @@
                 <%= title %>
             </h1>
             <h2>Upcoming Service Projects</h2>
-            <ul>
-                <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
-                <li>Food Drive - Help collect and distribute food to those in need.</li>
-                <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
-            </ul>
+
+            <% if (projects.length> 0) { %>
+                <ul>
+                    <% projects.forEach(project=> { %>
+                        <li>
+                            <strong>
+                                <%= project.title %>
+                            </strong> - <%= project.description %>
+                                <br>
+                                <small>
+                                    <%= project.location %> |
+                                        <%= new Date(project.date).toLocaleDateString('en-US') %>
+                                </small>
+                        </li>
+                        <% }); %>
+                </ul>
+                <% } else { %>
+                    <p>No projects found.</p>
+                    <% } %>
         </main>
         <%- include('partials/footer') %>
 </body>
