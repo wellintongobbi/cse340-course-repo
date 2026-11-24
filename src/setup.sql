@@ -42,3 +42,41 @@ INSERT INTO projects (organization_id, title, description, location, date) VALUE
 (3, 'Beach Cleanup', 'Removing trash from the coastline.', 'Sunset Beach', '2024-01-30'),
 (3, 'Clothing Donation', 'Sorting clothes for those in need.', 'Shelter Hub', '2024-02-28'),
 (3, 'Youth Mentoring', 'Helping students with their homework.', 'City Library', '2024-03-20');
+
+CREATE TABLE categories (
+    category_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+INSERT INTO categories (name) VALUES
+('Construction'),
+('Environment'),
+('Education'),
+('Community'),
+('Food');
+
+-- Tabela intermediária: um projeto pode ter várias categorias e vice-versa
+CREATE TABLE project_categories (
+    project_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    PRIMARY KEY (project_id, category_id),
+    FOREIGN KEY (project_id) REFERENCES projects (project_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories (category_id) ON DELETE CASCADE
+);
+
+INSERT INTO project_categories (project_id, category_id) VALUES
+(1,1),(1,3),
+(2,1),(2,4),
+(3,1),(3,2),(3,4),
+(4,1),(4,2),
+(5,1),(5,3),
+(6,2),(6,5),
+(7,2),(7,3),
+(8,2),(8,3),(8,5),
+(9,2),(9,5),
+(10,2),(10,4),
+(11,4),(11,5),
+(12,4),
+(13,2),(13,4),
+(14,4),
+(15,3),(15,4);
