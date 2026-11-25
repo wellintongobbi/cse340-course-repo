@@ -1,35 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('partials/header') %>
+    <main>
+        <h1>
+            <%= category.name %>
+        </h1>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="/css/main.css">
-</head>
+        <% if (projects.length> 0) { %>
+            <ul>
+                <% projects.forEach(project=> { %>
+                    <li><a href="/project/<%= project.project_id %>">
+                            <%= project.title %>
+                        </a></li>
+                    <% }); %>
+            </ul>
+            <% } else { %>
+                <p>No service projects in this category yet.</p>
+                <% } %>
 
-<body>
-    <%- include('partials/header') %>
-        <main>
-            <h1>
-                <%= category.name %>
-            </h1>
-
-            <% if (projects.length> 0) { %>
-                <ul>
-                    <% projects.forEach(project=> { %>
-                        <li><a href="/project/<%= project.project_id %>">
-                                <%= project.title %>
-                            </a></li>
-                        <% }); %>
-                </ul>
-                <% } else { %>
-                    <p>No service projects in this category yet.</p>
-                    <% } %>
-        </main>
-        <%- include('partials/footer') %>
-</body>
-
-</html>
+                    <p><a href="/edit-category/<%= category.category_id %>">Edit Category</a></p>
+    </main>
+    <%- include('partials/footer') %>
